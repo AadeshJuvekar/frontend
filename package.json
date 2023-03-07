@@ -21,7 +21,7 @@
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1"
   },
-  "proxy": "http://localhost:8084",
+  "proxy": "https://stately-tarsier-b981a0.netlify.app/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
