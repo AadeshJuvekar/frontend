@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./header.css";
 import logo from "../../static/images/logo.png";
 import AccountCircle from "@mui/icons-material/AccountCircle";

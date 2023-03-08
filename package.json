@@ -21,7 +21,7 @@
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1"
   },
-  "proxy": "progress-inspector-backend.netlify.app",
+  "proxy": "http://localhost:8084",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

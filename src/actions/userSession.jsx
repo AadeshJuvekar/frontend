@@ -23,6 +23,6 @@ export const userLogin = (userDetail, history) => async (dispatch) => {
 };
 
 export const destroySession = () => async () => {
-  const res = await axios.get("/api/logout");
+  await axios.get("/api/logout");
   window.location.replace("/");
 };

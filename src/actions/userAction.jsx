@@ -1,5 +1,4 @@
 import axios from "axios";
-import React from "react";
 import {
   GET_ERRORS,
   GET_USER,
@@ -13,7 +12,7 @@ import {
   GET_USER_TASKS,
   GET_USER_TASK,
 } from "./types";
-import history from "../history";
+//import history from "../history";
 //To register user
 export const addUser = (user, history) => async (dispatch) => {
   try {
@@ -40,7 +39,7 @@ export const getUser = (loginName) => async (dispatch) => {
 
 export const updateUser = (user) => async (dispatch) => {
   try {
-    const res = await axios.patch("/api/update", user);
+    await axios.patch("/api/update", user);
     window.location.replace("/dashboard");
   } catch (error) {
     dispatch({
@@ -69,7 +68,7 @@ export const authorizeClient = (
   history
 ) => async (dispatch) => {
   try {
-    const res = await axios.get(
+    await axios.get(
       `/api/authorizeClient/${clientLoginName}/${taskIdentifier}`
     );
     alert(`Client with Login Name ${clientLoginName} authorized successfully.`);
@@ -87,7 +86,7 @@ export const assignDeveloper = (taskIdentifier, loginName) => async (
   dispatch
 ) => {
   try {
-    const res = await axios.patch(
+    await axios.patch(
       `/api/task/assignDeveloper/${taskIdentifier}/${loginName}`
     );
     window.location.replace(`/task/${taskIdentifier}`);
@@ -105,7 +104,7 @@ export const createTask = (
   teamleaderLoginName
 ) => async (dispatch) => {
   try {
-    const res = await axios.post(
+    await axios.post(
       `/api/task/create/${productOwnerLoginName}/${teamleaderLoginName}`,
       task
     );
@@ -121,7 +120,7 @@ export const createTask = (
 //To update task
 export const updateTask = (taskIdentifier, task) => async (dispatch) => {
   try {
-    const res = await axios.patch(`/api/task/update/${taskIdentifier}`, task);
+    await axios.patch(`/api/task/update/${taskIdentifier}`, task);
     window.location.replace(`/task/${taskIdentifier}`);
   } catch (error) {
     dispatch({
@@ -134,7 +133,7 @@ export const deleteTask = (taskIdenitifer) => async (dispatch) => {
   if (
     window.confirm("Are you sure! This will delete task and data related to it")
   ) {
-    const res = await axios.delete(`/api/task/${taskIdenitifer}`);
+    await axios.delete(`/api/task/${taskIdenitifer}`);
     window.location.replace("/dashboard");
     dispatch({
       type: DELETE_TASK,
@@ -147,10 +146,10 @@ export const updateTaskStatus = (
   taskIdentifier,
   developerLoginName,
   task,
-  history
+  //history
 ) => async (dispatch) => {
   try {
-    const res = await axios.post(
+    await axios.post(
       `/api/task/updatestatus/${taskIdentifier}/${developerLoginName}`,
       task
     );
@@ -257,7 +256,7 @@ export const getDevelopers = () => async (dispatch) => {
 
 export const addRemark = (remark, id, history) => async (dispatch) => {
   try {
-    const res = await axios.post(`/api/client/addremark/${id}`, remark);
+    await axios.post(`/api/client/addremark/${id}`, remark);
     window.location.reload();
   } catch (error) {
     dispatch({

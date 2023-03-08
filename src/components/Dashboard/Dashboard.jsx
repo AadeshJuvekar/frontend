@@ -102,6 +102,7 @@ class Dashboard extends Component {
       if (task.title.toLowerCase().includes(searchfield.toLowerCase())) {
         return task;
       }
+      return null;
     });
     
     return (

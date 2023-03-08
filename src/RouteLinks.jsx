@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { createBrowserHistory } from "history";
-import PrivateRoute from "./PrivateRoute";
+//import { createBrowserHistory } from "history";
+//import PrivateRoute from "./PrivateRoute";
 import PropTypes from "prop-types";
 import { getSession, destroySession } from "./actions/userSession";
 import Profile from "./components/profile/Profile";

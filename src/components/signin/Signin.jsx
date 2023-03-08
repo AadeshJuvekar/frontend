@@ -65,7 +65,7 @@ class SignIn extends Component {
     }
   };
   render() {
-    const { errors } = this.state;
+    //const { errors } = this.state;
     console.log(this.state);
     const { userSession } = this.props;
     console.log(userSession);

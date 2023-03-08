@@ -7,10 +7,8 @@ import {
   Button,
   TextField,
   CssBaseline,
-  Select,
   MenuItem,
   Card,
-  InputLabel,
 } from "@mui/material";
 import { withStyles } from "@mui/styles";
 import { getSession } from "../../actions/userSession";
@@ -93,7 +91,7 @@ class CreateTask extends Component {
   //const classes = useStyles();
 
   render() {
-    const { errors } = this.state;
+    //const { errors } = this.state;
     const { classes } = this.props;
     const { owners } = this.props.owners;
     console.log(this.props.owners[0]);

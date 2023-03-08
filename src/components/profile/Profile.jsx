@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navigate, NavLink } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import "./profile.css"
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
