@@ -6,6 +6,7 @@ import {
   Chip,
   Container,
   Grid,
+  TextField,
   Typography,
 } from "@mui/material";
 import { withStyles } from "@mui/styles";
@@ -213,7 +214,30 @@ class Task extends Component {
                               </Typography>
                             );
                           })
+                          
                       : ""}
+                      <div>
+                      <TextField
+                          variant="outlined"
+                          margin="normal"
+                          required
+                          fullWidth
+                          name="comment"
+                          label="Add Comment"
+                          type="text"
+                          id="comment"
+                          onChange={this.onChange}                          
+                        />
+                        <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      style={{ marginTop: "4%" }}
+                    >
+                      Add Comment
+                    </Button>
+                        </div>
                   </Card>
                 </Grid>
               </Grid>
