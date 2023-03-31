@@ -256,7 +256,7 @@ export const getDevelopers = () => async (dispatch) => {
 
 export const addRemark = (remark, id, history) => async (dispatch) => {
   try {
-    await axios.post(`/api/client/addremark/${id}`, remark);
+    await axios.post(`/api/addRemark/${id}`, remark);
     window.location.reload();
   } catch (error) {
     dispatch({

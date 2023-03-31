@@ -13,6 +13,7 @@ import {
   TextField,
   Typography,
   Box,
+  MenuItem,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -26,9 +27,10 @@ class Signup extends Component {
       userName: "",
       password: "",
       confirmPassword: "",
-      userType: "Teamleader",
+      userType: "",
       errors: {},
     };
+  
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -38,6 +40,7 @@ class Signup extends Component {
   onChange = (event) => {
     this.setState({ errors: {} });
     this.setState({ [event.target.name]: event.target.value });
+    //console.log("onchange :" +event.target.value);
   };
 
   onSubmit = (event) => {
@@ -48,7 +51,7 @@ class Signup extends Component {
       const newUser = {
         name: this.state.name,
         loginName: this.state.userName,
-        userType: "TeamLeader",
+        userType: this.state.userType,
         pwd: this.state.password,
       };
       console.log(newUser);
@@ -63,6 +66,7 @@ class Signup extends Component {
   render() {
     const { errors } = this.state;
     const { userSession } = this.props;
+    const userTypes=['TeamLeader', 'ProductOwner', 'Developer', 'Client'];
     console.log(userSession);
     return (
       userSession.authType !== undefined &&
@@ -71,18 +75,18 @@ class Signup extends Component {
     ) : (
       <div className="signup">
         <div className="signupContainer">
-          <Card style={{ width: "90%", marginLeft: "5%", padding: "20px 0" }}>
+          <Card style={{ width: "90%", marginLeft: "5%", padding: "8px 0" }}>
             <Container component="main" maxWidth="xs">
               <CssBaseline />
               <Box
                 sx={{
-                  marginTop: 2,
+                  marginTop: 0,
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
                 }}
               >
-                <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                <Avatar sx={{ m: 0.5, bgcolor: "secondary.main" }}>
                   <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
@@ -160,6 +164,32 @@ class Signup extends Component {
                   {errors.pwd && (
                     <Typography color="error">*{errors.pwd}</Typography>
                   )}
+                   <>
+                <TextField                  
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  select
+                  style={{ color: "grey" }}
+                  name="userType"
+                  label="Select User Type"
+                  type="userType"
+                  id="userType"
+                  onChange={this.onChange}
+                  value={this.state.userType}
+                  labelId="User Type"
+                  error={this.state.errors.userType}
+                  helperText={this.state.errors.userType}
+                >
+                  {userTypes.map((userType) => (
+                    <MenuItem key={userType} value={userType}>
+                      {userType}                      
+                    </MenuItem>
+                    
+                  ))}
+                </TextField>
+              </>
                   <Button
                     data-testid="Register"
                     type="submit"

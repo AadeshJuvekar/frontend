@@ -13,7 +13,7 @@ import { withStyles } from "@mui/styles";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
-import { getTask, deleteTask } from "./../../actions/userAction";
+import { getTask, deleteTask, addRemark } from "./../../actions/userAction";
 import { getSession } from "./../../actions/userSession";
 
 const useStyles = () => ({
@@ -73,16 +73,47 @@ const useStyles = () => ({
 });
 
 class Task extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      remark: "",
+      errors: {},
+    };
+    this.onChange = this.onChange.bind(this);
+  }
+  onChange = (event) => {
+    // console.log(event.target.value);
+    //study syntheticbaseevent its an object
+    this.setState({ errors: {} });
+    this.setState({ [event.target.name]: event.target.value });
+  };
   onClick = (event) => {
     const taskIdentifier = this.props.taskIdentifier.taskIdentifier;
     this.props.deleteTask(taskIdentifier);
   };
-
+  onSubmit = (event) => {
+    event.preventDefault();
+    const newComment = {
+      remarkIdentifier: "RM01",
+      description: this.state.remark,
+      givenBy: this.props.userSession.loginName
+    };
+    this.props.getSession();
+    this.props.addRemark(
+      newComment,
+      this.props.taskIdentifier.taskIdentifier
+    );
+  };
   componentDidMount() {
     const taskIdentifier = this.props.taskIdentifier.taskIdentifier;
     console.log("did :", taskIdentifier);
     this.props.getSession();
     this.props.getTask(taskIdentifier);
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   }
 
   render() {
@@ -108,6 +139,7 @@ class Task extends Component {
             style={{ margin: "10px", borderRadius: "10px" }}
           >
             <Container maxWidth="lg" style={{ minHeight: "65vh" }}>
+            <form autoComplete="off" onSubmit={this.onSubmit}>
               <Grid container>
                 <Grid item md={6}>
                   {/* <!-- project title--> */}
@@ -175,9 +207,8 @@ class Task extends Component {
                   <br />
                   <br />
                 </Grid>
-
                 {/* Remark Card */}
-
+                
                 <Grid item md={6}>
                   <Card className={classes.cardroot}>
                     {remark !== undefined ? (
@@ -187,7 +218,7 @@ class Task extends Component {
                         component="h2"
                         className={classes.remark}
                       >
-                        {`Remarks (` + remark.length + `)`}
+                        {`Comments : ` + remark.length + ``}
                       </Typography>
                     ) : (
                       ""
@@ -204,6 +235,7 @@ class Task extends Component {
                                 key={taskremark.id}
                               >
                                 <Typography style={{ fontWeight: "bold" }}>
+                                  {taskremark.id} &nbsp
                                   {taskremark.givenBy}
                                 </Typography>
                                 <Typography>{taskremark.createdAt}</Typography>
@@ -222,25 +254,29 @@ class Task extends Component {
                           margin="normal"
                           required
                           fullWidth
-                          name="comment"
+                          name="remark"
                           label="Add Comment"
                           type="text"
-                          id="comment"
+                          id="remark"
+                          error={this.state.errors.loginName}
+                          helperText={this.state.errors.loginName}
                           onChange={this.onChange}                          
-                        />
+                        />                      
                         <Button
                       type="submit"
                       fullWidth
                       variant="contained"
                       color="primary"
-                      style={{ marginTop: "4%" }}
+                      style={{ marginBottom: "10px"}}
                     >
                       Add Comment
                     </Button>
                         </div>
                   </Card>
                 </Grid>
+               
               </Grid>
+              </form>
             </Container>
           </Card>
 
@@ -258,9 +294,12 @@ Task.propTypes = {
   deleteTask: PropTypes.func.isRequired,
   tasks: PropTypes.object.isRequired,
   task: PropTypes.object.isRequired,
+  addRemark: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  errors: state.errors,
   tasks: state.tasks,
   task: state.tasks.task,
   remarks: state.tasks.task.remark,
@@ -269,6 +308,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getTask,
+  addRemark,
   getSession,
   deleteTask,
 })(withStyles(useStyles)(Task));
