@@ -77,6 +77,7 @@ class Task extends Component {
     super(props);
     this.state = {
       remark: "",
+      count: 0,
       errors: {},
     };
     this.onChange = this.onChange.bind(this);
@@ -93,16 +94,18 @@ class Task extends Component {
   };
   onSubmit = (event) => {
     event.preventDefault();
+   // console.log("Remark Count :" + this.state.tasks.task.remark);
     const newComment = {
-      remarkIdentifier: "RM01",
+      //remarkIdentifier: this.props.taskIdentifier.taskIdentifier + "-" + this.state.count ,
       description: this.state.remark,
       givenBy: this.props.userSession.loginName
     };
+   // console.log(this.props.taskIdentifier.taskIdentifier + "-" );
     this.props.getSession();
-    this.props.addRemark(
-      newComment,
-      this.props.taskIdentifier.taskIdentifier
-    );
+     this.props.addRemark(
+       newComment,
+       this.props.taskIdentifier.taskIdentifier
+     );
   };
   componentDidMount() {
     const taskIdentifier = this.props.taskIdentifier.taskIdentifier;
@@ -120,10 +123,11 @@ class Task extends Component {
     const taskIdentifier = this.props.taskIdentifier.taskIdentifier;
     const { classes } = this.props;
     const { task } = this.props;
+    const userType = this.props.userSession.authType;
     const remark = task.remarks;
     console.log("userSession :", taskIdentifier, this.props.userSession.loginName , this.props.userSession.authType);
     const page = this.setState;
-    console.log("Remarks " + remark);
+    console.log("Remarks :" + remark);
     return (
       <div
         style={{
@@ -183,7 +187,9 @@ class Task extends Component {
                         </NavLink>
                       </div>
                     </Grid>
-                    <Grid item md={3}>
+                    
+                      {userType === "ProductOwner" ? (
+                        <Grid item md={4}>
                       <div className="mb-4">
                         <NavLink
                           to={`/task/assignDeveloper/${task.taskIdentifier}`}
@@ -192,7 +198,19 @@ class Task extends Component {
                           <Button variant="outlined">Assign Developer</Button>
                         </NavLink>
                       </div>
-                    </Grid>
+                      </Grid>
+                      ):(
+                        <Grid item md={4}>
+                        <div className="mb-4">
+                        <NavLink
+                          to={`/task/assignClient/${task.taskIdentifier}`}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <Button textAlign="center" variant="outlined">Assign Client</Button>
+                        </NavLink>
+                      </div>
+                      </Grid>
+                      )}
                     <Grid item md={3}>
                       <div className="mb-4">
                         <Button
@@ -235,8 +253,8 @@ class Task extends Component {
                                 key={taskremark.id}
                               >
                                 <Typography style={{ fontWeight: "bold" }}>
-                                  {taskremark.id} &nbsp
-                                  {taskremark.givenBy}
+                                {taskremark.remarkIdentifier} <t/>
+                                {taskremark.givenBy}
                                 </Typography>
                                 <Typography>{taskremark.createdAt}</Typography>
                                 <Typography>
@@ -258,8 +276,8 @@ class Task extends Component {
                           label="Add Comment"
                           type="text"
                           id="remark"
-                          error={this.state.errors.loginName}
-                          helperText={this.state.errors.loginName}
+                          error={this.state.errors.remark}
+                          helperText={this.state.errors.remark}
                           onChange={this.onChange}                          
                         />                      
                         <Button
