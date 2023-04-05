@@ -3,10 +3,11 @@ import { GET_ERRORS, GET_SESSION } from "./types";
 
 export const getSession = () => async (dispatch) => {
   const res = await axios.get("/api/getSession");
-
+  console.log("res :"+ res.data);
   dispatch({
     type: GET_SESSION,
     payload: res.data,
+    
   });
 };
 

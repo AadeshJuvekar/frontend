@@ -96,6 +96,8 @@ class UpdateTask extends Component {
   }
   render() {
     const { classes } = this.props;
+    var disabled= false;
+    const {userType} = this.props.userSession;
     const taskIdentfier = this.props.taskIdentifier.taskIdentifier;
     return (
       <>
@@ -104,7 +106,9 @@ class UpdateTask extends Component {
           <Typography className={classes.heading} variant="h4" align="center">
             Update Task
           </Typography>
-
+          {userType === "Client" || userType === "Developer"  ? 
+          (<>{disabled =true}
+          </>):(<></>)}
           <form noValidate onSubmit={this.onSubmit}>
             <TextField
               className={classes.field}
@@ -114,6 +118,7 @@ class UpdateTask extends Component {
               color="secondary"
               fullWidth
               required
+              disabled={disabled}
               onChange={this.onChange}
               value={this.state.title}
             />
@@ -137,14 +142,32 @@ class UpdateTask extends Component {
               rows={2}
               fullWidth
               required
+              disabled={disabled}
               name="description"
               onChange={this.onChange}
               value={this.state.description}
             />
-            <Select
+            {userType === "Client"  ? 
+          (<>
+          <Select
+            className={classes.dropdown}
+            name="progress"
+            onChange={this.onChange}
+            disabled={disabled}
+            value={this.state.progress}
+          >
+            {" "}
+            <MenuItem value={"Pending"}>Pending</MenuItem>
+            <MenuItem value={"In Progress"}>In Progress</MenuItem>
+            <MenuItem value={"Testing"}>Testing</MenuItem>
+            <MenuItem value={"Done"}>Done</MenuItem>
+          </Select>
+        </>):(<>
+        <Select
               className={classes.dropdown}
               name="progress"
               onChange={this.onChange}
+
               value={this.state.progress}
             >
               {" "}
@@ -152,7 +175,8 @@ class UpdateTask extends Component {
               <MenuItem value={"In Progress"}>In Progress</MenuItem>
               <MenuItem value={"Testing"}>Testing</MenuItem>
               <MenuItem value={"Done"}>Done</MenuItem>
-            </Select>
+            </Select></>)}
+            
             <Button
               align="center"
               type="submit"

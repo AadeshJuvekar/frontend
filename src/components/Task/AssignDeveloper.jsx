@@ -22,14 +22,15 @@ import { NavLink } from "react-router-dom";
 
 const useStyles = () => ({
   title: {
-    fontSize: 55,
-    padding: "55px 0px",
+    fontSize: 35,
+    padding: "35px 0px",
     fontWeight: 300,
   },
   card: {
     width: "80%",
     margin: "5%",
-    marginLeft: "12%",
+    marginLeft: "10%",
+    marginRight: "5%",
   },
 });
 
@@ -82,7 +83,25 @@ class AssignDeveloper extends Component {
     return (
       <>
         <CssBaseline />
-        <Card className={classes.card}>
+        <Box
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "7%",
+                paddingBottom: "7%",
+                height:"100%"
+              }}
+            >
+        <Card varient="outlined"
+                maxWidth="sm"
+                style={{
+                  width: "60%",
+                  height: "100%",
+                  padding: "30px",
+                  margin: "5%",
+                  marginLeft: "5%",
+                  marginRight: "5%",
+                }}>
           <Container maxWidth="sm">
             <div>
               <Typography variant="h1" align="center" className={classes.title}>
@@ -92,7 +111,7 @@ class AssignDeveloper extends Component {
                 <Grid container alignItems="flex-start" spacing={1}>
                   {developers !== undefined ? (
                     <Select
-                      style={{ width: "100%", minHeight: "10%" }}
+                      style={{ width: "200%", minHeight: "10%"}}
                       name="loginName"
                       onChange={this.onChange}
                       value={this.state.loginName}
@@ -112,7 +131,7 @@ class AssignDeveloper extends Component {
                   )}
 
                   <Container maxWidth="sm">
-                    <Box m="30px auto">
+                    <Box m="20px auto">
                       <Button
                         variant="contained"
                         type="submit"
@@ -137,6 +156,7 @@ class AssignDeveloper extends Component {
             </div>
           </Container>
         </Card>
+        </Box>
       </>
     );
   }

@@ -123,9 +123,9 @@ class Task extends Component {
     const taskIdentifier = this.props.taskIdentifier.taskIdentifier;
     const { classes } = this.props;
     const { task } = this.props;
-    const userType = this.props.userSession.authType;
+    const {userType} = this.props.userSession;
     const remark = task.remarks;
-    console.log("userSession :", taskIdentifier, this.props.userSession.loginName , this.props.userSession.authType);
+    console.log("userSession :", taskIdentifier, this.props.userSession.loginName , this.props.userSession.userType);
     const page = this.setState;
     console.log("Remarks :" + remark);
     return (
@@ -187,15 +187,26 @@ class Task extends Component {
                         </NavLink>
                       </div>
                     </Grid>
-                    
-                      {userType === "ProductOwner" ? (
-                        <Grid item md={4}>
+                    {userType === "Client" || userType === "Developer"  ? (
+                      //   <Grid item md={4}>
+                      // <div className="mb-4">
+                      //   <NavLink
+                      //     to={`/task/assignDeveloper/${task.taskIdentifier}`}
+                      //     style={{ textDecoration: "none" }}
+                      //   >
+                      //     <Button variant="outlined">Assign Client</Button>
+                      //   </NavLink>
+                      // </div>
+                      // </Grid>
+                      <></>
+                      ):(<>{userType === "ProductOwner"  ? (
+                        <Grid item md={3}>
                       <div className="mb-4">
                         <NavLink
-                          to={`/task/assignDeveloper/${task.taskIdentifier}`}
+                          to={`/task/assignClient/${task.taskIdentifier}`}
                           style={{ textDecoration: "none" }}
                         >
-                          <Button variant="outlined">Assign Developer</Button>
+                          <Button variant="outlined">Add Client</Button>
                         </NavLink>
                       </div>
                       </Grid>
@@ -203,14 +214,15 @@ class Task extends Component {
                         <Grid item md={4}>
                         <div className="mb-4">
                         <NavLink
-                          to={`/task/assignClient/${task.taskIdentifier}`}
+                          to={`/task/assignDeveloper/${task.taskIdentifier}`}
                           style={{ textDecoration: "none" }}
                         >
-                          <Button textAlign="center" variant="outlined">Assign Client</Button>
+                          <Button textAlign="center" variant="outlined">Assign Developer</Button>
                         </NavLink>
                       </div>
                       </Grid>
-                      )}
+                      )}</>)}
+                      {userType === "Client" || userType === "Developer"  ?"": (
                     <Grid item md={3}>
                       <div className="mb-4">
                         <Button
@@ -221,6 +233,7 @@ class Task extends Component {
                         </Button>
                       </div>
                     </Grid>
+                  )}                  
                   </Grid>
                   <br />
                   <br />
