@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   GET_ERRORS,
   GET_USER,
+  GET_DEVELOPER,
   GET_USERS,
   DELETE_TASK,
   GET_DEVELOPERS,
@@ -183,6 +184,23 @@ export const getTask = (taskIdentifier) => async (dispatch) => {
     //  window.location.href = "/dashboard";
   }
 };
+
+
+export const getDeveloper = (taskIdentifier) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/task/developer/${taskIdentifier}`);
+    dispatch({
+      type: GET_DEVELOPER,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data,
+    });
+  }
+};
+
 
 /**
  * This function provides all available tasks

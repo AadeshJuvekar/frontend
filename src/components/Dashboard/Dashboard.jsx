@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { withStyles } from "@mui/styles";
 import { getSession } from "../../actions/userSession";
-import { getTasks, getUserTasks } from "./../../actions/userAction";
+import { getTasks,getDeveloper, getUserTasks } from "./../../actions/userAction";
 import { NavLink } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -60,6 +60,7 @@ const columns = [
     minWidth: 170,
     align: "left",
   },
+  { id: "assignedTo", label: "Assigned To", minWidth: 170, align: "left" },
   {
     id: "createdAt",
     label: "Created At",
@@ -83,16 +84,14 @@ class Dashboard extends Component {
   };
  
   componentDidMount() {
-     //this.props.getSession();
-     //console.log(this.props.getSession());
      this.props.getUserTasks(this.props.userSession.loginName);
-     //this.props.getTasks();
   }
 
   render() {
     const { userSession } = this.props;
     const { classes } = this.props;
     const tasks = this.props.tasks;
+    const {developers} =this.props;
     //const tasks = this.props.tasks.tasks;
     const { searchfield } = this.state;
     const { page } = this.state;
@@ -209,8 +208,10 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   tasks: PropTypes.object.isRequired,
+  developer: PropTypes.object.isRequired,
   getSession: PropTypes.func.isRequired,
   users: PropTypes.object.isRequired,
+  getDeveloper: PropTypes.func.isRequired,
   getUserTasks: PropTypes.func.isRequired,
   userSession: PropTypes.object.isRequired,
 };
@@ -218,10 +219,10 @@ Dashboard.propTypes = {
 const mapStateToProps = (state) => ({
   userSession: state.userSession, 
   users: state.users,
-  //tasks : state.tasks,
+  developer : state.tasks.developer,
   tasks: state.users.userTasks
 });
 
-export default connect(mapStateToProps, {getSession, getTasks, getUserTasks })(
+export default connect(mapStateToProps, {getSession, getTasks,getDeveloper, getUserTasks })(
   withStyles(useStyles)(Dashboard)
 );

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  Avatar,
   Button,
   Card,
   CardContent,
@@ -13,7 +14,7 @@ import { withStyles } from "@mui/styles";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
-import { getTask, deleteTask, addRemark } from "./../../actions/userAction";
+import { getTask, getDeveloper, deleteTask, addRemark } from "./../../actions/userAction";
 import { getSession } from "./../../actions/userSession";
 
 const useStyles = () => ({
@@ -112,6 +113,8 @@ class Task extends Component {
     console.log("did :", taskIdentifier);
     this.props.getSession();
     this.props.getTask(taskIdentifier);
+    this.props.getDeveloper(taskIdentifier);
+
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -121,6 +124,8 @@ class Task extends Component {
 
   render() {
     const taskIdentifier = this.props.taskIdentifier.taskIdentifier;
+    const {developer} = this.props;
+    console.log("developer: ", developer );
     const { classes } = this.props;
     const { task } = this.props;
     const {userType} = this.props.userSession;
@@ -150,8 +155,14 @@ class Task extends Component {
                   <h1 className="mt-0">{task.title}</h1>
                   <h4 className="mt-0">Task Id : {task.taskIdentifier}</h4>
                   <div className="badge bg-secondary text-light mb-3">
-                    <Chip label={task.progress} color="primary" />
+                  <h4 className="mt-0">Status :  <Chip label={task.progress} color="primary" /> </h4>
                   </div>
+                  <h4 className="mt-0">Assigned to : 
+                  {developer.userType === "Developer"? 
+                  <Chip avatar={<Avatar>D</Avatar>} label={developer.loginName} variant="outlined"/>
+                  :""}
+                 
+                  </h4>
 
                   <h4>Task Description:</h4>
 
@@ -320,10 +331,12 @@ class Task extends Component {
 
 Task.propTypes = {
   getTask: PropTypes.func.isRequired,
+  getDeveloper: PropTypes.func.isRequired,
   getSession: PropTypes.func.isRequired,
   userSession: PropTypes.object.isRequired,
   deleteTask: PropTypes.func.isRequired,
   tasks: PropTypes.object.isRequired,
+  developer: PropTypes.object.isRequired,
   task: PropTypes.object.isRequired,
   addRemark: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
@@ -333,6 +346,7 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
   tasks: state.tasks,
   task: state.tasks.task,
+  developer: state.tasks.developer,
   remarks: state.tasks.task.remark,
   userSession: state.userSession,
 });
@@ -341,5 +355,6 @@ export default connect(mapStateToProps, {
   getTask,
   addRemark,
   getSession,
+  getDeveloper,
   deleteTask,
 })(withStyles(useStyles)(Task));

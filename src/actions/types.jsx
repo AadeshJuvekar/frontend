@@ -14,6 +14,7 @@ export const GET_OWNERS = "GET_OWNERS";
 //Task Types
 export const GET_TASKS = "GET_TASKS";
 export const GET_TASK = "GET_TASK";
+export const GET_DEVELOPER = "GET_DEVELOPER";
 export const GET_USER_TASK = "GET_USER_TASK";
 export const GET_USER_TASKS = "GET_USER_TASKS";
 export const DELETE_TASK = "DELETE_TASK";

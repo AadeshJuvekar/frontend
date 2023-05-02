@@ -1,8 +1,9 @@
-import { GET_TASK, GET_TASKS } from "../actions/types";
+import { GET_DEVELOPER, GET_TASK, GET_TASKS } from "../actions/types";
 
 const initialState = {
   tasks: [],
   task: {},
+  developer:{}
 };
 
 export default function(state = initialState, action) {
@@ -16,6 +17,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         task: action.payload,
+      };
+      case GET_DEVELOPER:
+      return {
+        ...state,
+        developer: action.payload,
       };
     default:
       return state;
