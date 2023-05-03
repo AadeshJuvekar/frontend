@@ -157,7 +157,7 @@ class Task extends Component {
                   <div className="badge bg-secondary text-light mb-3">
                   <h4 className="mt-0">Status :  <Chip label={task.progress} color="primary" /> </h4>
                   </div>
-                  <h4 className="mt-0">Assigned to : 
+                  <h4 className="mt-0">Assigned to : <t/>
                   {developer.userType === "Developer"? 
                   <Chip avatar={<Avatar>D</Avatar>} label={developer.loginName} variant="outlined"/>
                   :""}
@@ -189,6 +189,7 @@ class Task extends Component {
 
                   <Grid container spacing={1}>
                     <Grid item md={3}>
+                    {userType === "TeamLeader" || userType === "Developer"  ? (
                       <div className="mb-4">
                         <NavLink
                           to={`/task/update/${taskIdentifier}`}
@@ -196,19 +197,10 @@ class Task extends Component {
                         >
                           <Button variant="outlined">Update Task</Button>
                         </NavLink>
-                      </div>
+                      </div>):""}
                     </Grid>
                     {userType === "Client" || userType === "Developer"  ? (
-                      //   <Grid item md={4}>
-                      // <div className="mb-4">
-                      //   <NavLink
-                      //     to={`/task/assignDeveloper/${task.taskIdentifier}`}
-                      //     style={{ textDecoration: "none" }}
-                      //   >
-                      //     <Button variant="outlined">Assign Client</Button>
-                      //   </NavLink>
-                      // </div>
-                      // </Grid>
+                      
                       <></>
                       ):(<>{userType === "ProductOwner"  ? (
                         <Grid item md={3}>

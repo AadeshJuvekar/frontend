@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { withStyles } from "@mui/styles";
 import { getSession } from "../../actions/userSession";
-import { getTasks,getDeveloper, getUserTasks } from "./../../actions/userAction";
+import { getTasks, getUserTasks } from "./../../actions/userAction";
 import { NavLink } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -60,7 +60,6 @@ const columns = [
     minWidth: 170,
     align: "left",
   },
-  { id: "assignedTo", label: "Assigned To", minWidth: 170, align: "left" },
   {
     id: "createdAt",
     label: "Created At",
@@ -91,8 +90,7 @@ class Dashboard extends Component {
     const { userSession } = this.props;
     const { classes } = this.props;
     const tasks = this.props.tasks;
-    const {developers} =this.props;
-    //const tasks = this.props.tasks.tasks;
+    const {userType} = this.props.userSession;
     const { searchfield } = this.state;
     const { page } = this.state;
     const { rowsPerPage } = this.state;
@@ -119,6 +117,7 @@ class Dashboard extends Component {
           Task List
         </Typography>
         <Paper className={classes.root}>
+        {userType === "TeamLeader"  ? (
           <NavLink to="/task/create" style={{ textDecoration: "none" }}>
             <Button
               variant="contained"
@@ -128,7 +127,7 @@ class Dashboard extends Component {
             >
               Create Task
             </Button>
-          </NavLink>
+          </NavLink>):""}
           <div className={classes.input}>
             <InputBase
               placeholder="Search By Title"
@@ -208,10 +207,8 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   tasks: PropTypes.object.isRequired,
-  developer: PropTypes.object.isRequired,
   getSession: PropTypes.func.isRequired,
   users: PropTypes.object.isRequired,
-  getDeveloper: PropTypes.func.isRequired,
   getUserTasks: PropTypes.func.isRequired,
   userSession: PropTypes.object.isRequired,
 };
@@ -219,10 +216,9 @@ Dashboard.propTypes = {
 const mapStateToProps = (state) => ({
   userSession: state.userSession, 
   users: state.users,
-  developer : state.tasks.developer,
   tasks: state.users.userTasks
 });
 
-export default connect(mapStateToProps, {getSession, getTasks,getDeveloper, getUserTasks })(
+export default connect(mapStateToProps, {getSession, getTasks, getUserTasks })(
   withStyles(useStyles)(Dashboard)
 );

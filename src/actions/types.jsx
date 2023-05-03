@@ -9,6 +9,7 @@ export const GET_USER = "GET_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const DELETE_USER = "DELETE_USER";
 export const GET_DEVELOPERS = "GET_DEVELOPERS";
+export const GET_CLIENTS = "GET_CLIENTS";
 export const GET_OWNERS = "GET_OWNERS";
 
 //Task Types

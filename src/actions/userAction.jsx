@@ -12,6 +12,7 @@ import {
   GET_OWNERS,
   GET_USER_TASKS,
   GET_USER_TASK,
+  GET_CLIENTS,
 } from "./types";
 //import history from "../history";
 //To register user
@@ -89,6 +90,22 @@ export const assignDeveloper = (taskIdentifier, loginName) => async (
   try {
     await axios.patch(
       `/api/task/assignDeveloper/${taskIdentifier}/${loginName}`
+    );
+    window.location.replace(`/task/${taskIdentifier}`);
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data,
+    });
+  }
+};
+//To assign task to developer
+export const assignClient = (taskIdentifier, loginName) => async (
+  dispatch
+) => {
+  try {
+    await axios.patch(
+      `/api/task/assignClient/${taskIdentifier}/${loginName}`
     );
     window.location.replace(`/task/${taskIdentifier}`);
   } catch (error) {
@@ -271,6 +288,16 @@ export const getDevelopers = () => async (dispatch) => {
     payload: res.data,
   });
 };
+export const getClients = () => async (dispatch) => {
+  let userType = "Client";
+  const res = await axios.get(`/api/all/${userType}`);
+  console.log(res.data);
+  dispatch({
+    type: GET_CLIENTS,
+    payload: res.data,
+  });
+};
+
 
 export const addRemark = (remark, id, history) => async (dispatch) => {
   try {

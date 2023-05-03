@@ -5,6 +5,7 @@ import userReducer from "./userReducer";
 import taskReducer from "./taskReducer";
 import ownerReducer from "./ownerReducer";
 import developerReducer from "./developerReducer";
+import clientReducer from "./clientReducer";
 
 export default combineReducers({
   errors: errorReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   tasks: taskReducer,
   owners: ownerReducer,
   developers: developerReducer,
+  clients: clientReducer
 });

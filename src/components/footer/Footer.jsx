@@ -7,7 +7,7 @@ function footer() {
       <div className="footerCopyright">
         <Copyright className="footerIcon" />
         <span className="footerText">
-          2022 by Progress Inspector. All Rights Reserved.
+          2023 by Progress Inspector. All Rights Reserved.
         </span>
       </div>
     </div>

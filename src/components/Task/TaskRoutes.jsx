@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import AssignDeveloper from "./AssignDeveloper";
 import Task from "./Task";
 import UpdateTask from "./UpdateTask";
+import AssignClient from "./AssignClient";
 
 function TaskRoutes(props) {
   const taskIdentifier = useParams();
@@ -13,6 +14,7 @@ function TaskRoutes(props) {
           View: <Task taskIdentifier={taskIdentifier} />,
           Update: <UpdateTask taskIdentifier={taskIdentifier} />,
           AssignDeveloper: <AssignDeveloper taskIdentifier={taskIdentifier} />,
+          AssignClient: <AssignClient taskIdentifier={taskIdentifier} />,
         }[props.action]
       }
     </div>
