@@ -14,8 +14,10 @@ function Header(props) {
     <div className="header">
       <div className="headerWrapper">
         <div className="headerLeft">
-          <img src={logo} alt="Progress Inspector" className="headerLogo" />
-          <span className="headerTitle">Progress Inspector</span>
+          <NavLink to="/" className="headerLink">
+            <img src={logo} alt="Progress Inspector" className="headerLogo" />
+            <span className="headerTitle">Progress Inspector</span>
+          </NavLink>
         </div>
         <div className="headerRight">
           <div className="headerMenu">
@@ -24,37 +26,35 @@ function Header(props) {
               <span className="headerMenuItem">Home</span>
             </NavLink>
 
-            {props.userSession.authType !== "notLoggedIn" ? (
-              <>
-                <NavLink to="/dashboard" className="headerLink">
-                  <DashboardIcon className="headerIcon" />
-                  <span className="headerMenuItem">Dashboard</span>
-                </NavLink>
-                <NavLink to="/profile" className="headerLink">
-                  <PersonIcon className="headerIcon" />
-                  <span className="headerMenuItem">Profile</span>
-                </NavLink>
-                <NavLink
-                  to="/logout"
-                  className="headerLink"
-                  onClick={props.logoutFunction}
-                >
-                  <LogoutIcon className="headerIcon" />
-                  <span className="headerMenuItem">Logout</span>
-                </NavLink>
-              </>
-            ) : (
-              <>
-                <NavLink to="/register" className="headerLink">
-                  <AccountCircle className="headerIcon" />
-                  <span className="headerMenuItem">Register</span>
-                </NavLink>
-                <NavLink to="/login" className="headerLink">
-                  <VpnKeyIcon className="headerIcon" />
-                  <span className="headerMenuItem">Login</span>
-                </NavLink>
-              </>
-            )}
+            {props.userSession.authType !== "notLoggedIn"
+              ? <div>
+                  <NavLink to="/dashboard" className="headerLink">
+                    <DashboardIcon className="headerIcon" />
+                    <span className="headerMenuItem">Dashboard</span>
+                  </NavLink>
+                  <NavLink to="/profile" className="headerLink">
+                    <PersonIcon className="headerIcon" />
+                    <span className="headerMenuItem">Profile</span>
+                  </NavLink>
+                  <NavLink
+                    to="/logout"
+                    className="headerLink"
+                    onClick={props.logoutFunction}
+                  >
+                    <LogoutIcon className="headerIcon" />
+                    <span className="headerMenuItem">Logout</span>
+                  </NavLink>
+                </div>
+              : <div>
+                  <NavLink to="/register" className="headerLink">
+                    <AccountCircle className="headerIcon" />
+                    <span className="headerMenuItem">Register</span>
+                  </NavLink>
+                  <NavLink to="/login" className="headerLink">
+                    <VpnKeyIcon className="headerIcon" />
+                    <span className="headerMenuItem">Login</span>
+                  </NavLink>
+                </div>}
           </div>
         </div>
       </div>
