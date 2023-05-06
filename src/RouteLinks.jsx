@@ -79,7 +79,7 @@ class RouteLinks extends Component {
             <Route
               exact
               path="/task/assignDeveloper/:taskIdentifier"
-              element={<TaskRoutes action={"assignDeveloper"} />}
+              element={<TaskRoutes action={"AssignDeveloper"} />}
               userSession={userSession}
               permittedUser="TeamLeader"
             />
@@ -87,17 +87,10 @@ class RouteLinks extends Component {
               exact
               path="/task/assignClient/:taskIdentifier"
               element={<TaskRoutes action={"AssignClient"} />}
-              userSession={userSession}
+              userSession={userSession}              
+              permittedUser="TeamLeader"
             />
           </Routes>
-          {/* <PrivateRoute
-              exact
-              path="/teamLeader/assigndev/:taskIdentifier"
-              component={AssignTaskDev}
-              userSession={userSession}
-              permittedUser="TeamLeader"
-            /> */}
-          {/* loggedInUser Private Links End */}
           <Footer />
         </Router>
       </>
